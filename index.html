@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Birthday Gift For My Gorgeous Girl</title>
+    <style>
+        :root {
+            --bg-color: #fce4ec;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --text-color: #5c3a42;
+            --accent-color: #d81b60;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #fbcfe8, #f472b6, #fda4af);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Passcode Screen */
+        #passcode-screen h2 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        .pin-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .dot {
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            background: transparent;
+            transition: 0.3s;
+        }
+        .dot.active {
+            background: var(--accent-color);
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .key {
+            background: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin: 0 auto;
+            transition: 0.2s;
+        }
+        .key:active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        #main-content {
+            display: none;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        /* Polaroid Section */
+        .polaroid {
+            background: white;
+            padding: 15px 15px 30px 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: rotate(-2deg);
+            margin: 25px auto;
+            width: 80%;
+        }
+        .polaroid:nth-child(even) {
+            transform: rotate(2deg);
+        }
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        /* Letter Section */
+        .letter-text {
+            text-align: left;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        /* Wish Cards Grid */
+        .wishes-grid {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .wish-box {
+            background: white;
+            padding: 10px;
+            border-radius: 12px;
+            flex: 1;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .wish-box:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Accordion / List for 10 Things */
+        details {
+            background: white;
+            text-align: left;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        summary {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+        details p {
+            margin: 10px 0 0 0;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Song Cards */
+        .song-card {
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .song-info h4 {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        .song-info p {
+            margin: 5px 0 0;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        button.action-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(216, 27, 96, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="passcode-screen" class="card">
+            <h2>Enter Password</h2>
+            <p style="font-size: 0.85rem; color: #777;">Hint: Your 4-digit birthday (MMDD)</p>
+            <div class="pin-dots">
+                <div class="dot" id="dot-0"></div>
+                <div class="dot" id="dot-1"></div>
+                <div class="dot" id="dot-2"></div>
+                <div class="dot" id="dot-3"></div>
+            </div>
+            <div class="keypad">
+                <button class="key" onclick="pressKey('1')">1</button>
+                <button class="key" onclick="pressKey('2')">2</button>
+                <button class="key" onclick="pressKey('3')">3</button>
+                <button class="key" onclick="pressKey('4')">4</button>
+                <button class="key" onclick="pressKey('5')">5</button>
+                <button class="key" onclick="pressKey('6')">6</button>
+                <button class="key" onclick="pressKey('7')">7</button>
+                <button class="key" onclick="pressKey('8')">8</button>
+                <button class="key" onclick="pressKey('9')">9</button>
+                <button class="key" onclick="pressKey('0')">0</button>
+            </div>
+            <p id="error-msg" style="color: red; font-size: 0.8rem; margin-top: 10px; display: none;">Incorrect passcode, try again!</p>
+        </div>
+
+        <div id="main-content">
+            
+            <div class="card">
+                <h1>Happy Birthday, Ajibose Oreoluwa ,My Supreme leader ❤️</h1>
+                <p style="font-style: italic;">I hope the words give you half the warmth you give your Oko Mii.</p>
+                
+                <div class="polaroid">
+                    <img src="https://i.ibb.co/9kDPzTdP/IMG-1764.jpg" alt="Us 1">
+                    <p style="margin: 10px 0 0; font-family: cursive; font-size: 0.9rem;">My favorite person ❤️</p>
+                </div>
+
+                <div class="polaroid">
+                    <img src="https://i.ibb.co/DP8bfGxN/IMG-5786.jpg" alt="Us 2">
+                    <p style="margin: 10px 0 0; font-family: cursive; font-size: 0.9rem;">Unforgettable moments ✨</p>
+                </div>
+
+                <div class="polaroid">
+                    <img src="https://i.ibb.co/qYMKdTgM/IMG-0402.jpg" alt="Us 3">
+                    <p style="margin: 10px 0 0; font-family: cursive; font-size: 0.9rem;">Forever & Always 🤍</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-top:0;">My Dearest Ajibose,</h3>
+                <div class="letter-text">
+Happy birthday, my love. I have been waiting all year to say this to you in a place that is only ours, where every word is written slowly and every flower was picked on purpose.
+
+Thank you for the mornings you make lighter, the nights you make softer, and every ordinary hour in between that you somehow turn into something I want to remember. 
+
+Whenever you call me Oko Mii, my entire world instantly brightens up. Thank you for loving me the way you do.
+
+Today is yours. Eat the cake, play the songs, read every silly thing I wrote about you, and know that you are deeply, endlessly loved.
+
+Forever yours,
+Fawaz 🤍
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-top:0;">Our Songs 🎶</h3>
+                
+                <div class="song-card">
+                    <div class="song-info">
+                        <h4>Marry You</h4>
+                        <p>Bruno Mars</p>
+                    </div>
+                </div>
+
+                <div class="song-card">
+                    <div class="song-info">
+                        <h4>So my darling</h4>
+                        <p>Rachel Chinouriri</p>
+                    </div>
+                </div>
+
+                <div class="song-card">
+                    <div class="song-info">
+                        <h4>I Guess I’m in Love</h4>
+                        <p>Clinton Kane</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="cake-card">
+                <h3 style="margin-top:0;">Make a Wish 🎂</h3>
+                <p style="font-size: 0.9rem;">Blow out the candles!</p>
+                <div style="font-size: 3rem; margin: 10px 0;" id="cake-emoji">🎂 🕯️🕯️🕯️</div>
+                <button class="action-btn" onclick="blowCandles()">Blow Candles</button>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-top:0;">Make Three Wishes ✨</h3>
+                <div class="wishes-grid">
+                    <div class="wish-box" onclick="alert('Wish for your past: That every difficult moment only led you closer to this exact smile.')">
+                        🕯️ Past
+                    </div>
+                    <div class="wish-box" onclick="alert('Wish for your today: That it feels slow, warm, and entirely about how cherished you are.')">
+                        🕯️ Today
+                    </div>
+                    <div class="wish-box" onclick="alert('Wish for your tomorrow: That all your biggest dreams turn into reality right by my side.')">
+                        🕯️ Tomorrow
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-top:0;">10 Things I Love About You 🤍</h3>
+                <details><summary>1. Your Good Morning messages</summary><p>The first thing I look forward to on my screen, half awake and still smiling. It resets my mood before the day even starts.</p></details>
+                <details><summary>2. The Way You Laugh at My Jokes</summary><p>Even when they are terrible, you always laugh. You make me feel hilarious.</p></details>
+                <details><summary>3. How Softly You call me</summary><p>There is a particular way you call me Oko Mii or Baby when you are tired and happy at the same time. I would spend forever listening to it.</p></details>
+                <details><summary>4. Your Stubborn, Beautiful Kindness</summary><p>You keep choosing to be gentle with people, even the ones who did not earn it. That takes more strength than anyone gives you credit for.</p></details>
+                <details><summary>5. Your Playlists You Sent Me</summary><p>I know they weren’t intended for me originally but songs are how you say things that are too big for texts. I have listened to every single one more times than I have admitted.</p></details>
+                <details><summary>6. How Excited You Get About Small Things</summary><p>Your energy shifts completely, and it is impossible not to smile watching you get happy over little details.</p></details>
+                <details><summary>7. The Way You Take Care of People</summary><p>You notice when someone is uncomfortable before anyone else does, and you quietly make sure they are okay.</p></details>
+                <details><summary>8. Your Honesty With Me</summary><p>You never let me guess where I stand. With you, I am safe to be completely real.</p></details>
+                <details><summary>9. How Cute You Look When You Concentrate</summary><p>Whether you are working or trying to figure something out, your focus is entirely unmatched and adorable.</p></details>
+                <details><summary>10. Just... You Existing</summary><p>Everything about who you are makes my life infinitely better. I love you, simply and completely.</p></details>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // CHANGE TO HER ACTUAL 4-DIGIT BIRTHDAY (MMDD):
+        const correctPin = "1111"; 
+        let enteredPin = "";
+
+        function pressKey(num) {
+            if (enteredPin.length < 4) {
+                enteredPin += num;
+                updateDots();
+            }
+
+            if (enteredPin.length === 4) {
+                if (enteredPin === correctPin) {
+                    document.getElementById('passcode-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                } else {
+                    document.getElementById('error-msg').style.display = 'block';
+                    setTimeout(() => {
+                        enteredPin = "";
+                        updateDots();
+                        document.getElementById('error-msg').style.display = 'none';
+                    }, 1000);
+                }
+            }
+        }
+
+        function updateDots() {
+            for (let i = 0; i < 4; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (i < enteredPin.length) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            }
+        }
+
+        function blowCandles() {
+            document.getElementById('cake-emoji').innerHTML = "🎂 ✨🎉";
+            document.getElementById('cake-card').querySelector('p').innerText = "Your wishes have been sent to the universe! ❤️";
+            event.target.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
